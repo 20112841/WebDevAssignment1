@@ -23,13 +23,15 @@ const SiteHeader = () => {
   
   const navigate = useNavigate();
 
-  const menuOptions = [
+const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcoming" },
-    { label: "Option 4", path: "/" },
+    { label: "Popular", path: "/movies/popular" },
+    { label: "Top Rated", path: "/movies/top-rated" },
+    { label: "Actors", path: "/actors" },
   ];
-
+  
   const handleMenuSelect = (pageURL) => {
     setAnchorEl(null);
     navigate(pageURL);
