@@ -53,7 +53,7 @@ export default function MovieCard({ movie, action }) {
             </Typography>
           </Grid>
           <Grid item xs={6} sx={{ textAlign: 'right' }}>
-            {/* New MUI Chip component displaying the rating */}
+            {/* MUI Chip component displaying the rating */}
             <Chip
               icon={<StarRateIcon style={{ color: '#ffb400' }} />}
               label={movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
