@@ -10,7 +10,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarToday";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import Grid from "@mui/material/Grid";
-import Chip from "@mui/material/Chip"; // New MUI Component
+import Chip from "@mui/material/Chip"; // <-- New MUI Component
 import img from '../../images/film-poster-placeholder.png';
 import { Link } from "react-router";
 import Avatar from '@mui/material/Avatar';
@@ -21,7 +21,7 @@ export default function MovieCard({ movie, action }) {
   const isFavorite = favorites.includes(movie.id);
 
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: 3, boxShadow: 4 }}>
+    <Card sx={{ maxWidth: 345, borderRadius: 2 }}>
       <CardHeader
         avatar={
           isFavorite ? (
@@ -48,18 +48,17 @@ export default function MovieCard({ movie, action }) {
         <Grid container spacing={1} alignItems="center">
           <Grid item xs={6}>
             <Typography variant="body2" component="p">
-              <CalendarIcon fontSize="small" sx={{ mr: 0.5, verticalAlign: 'middle' }} />
+              <CalendarIcon fontSize="small" />
               {movie.release_date}
             </Typography>
           </Grid>
           <Grid item xs={6} sx={{ textAlign: 'right' }}>
-            {/* MUI Chip component displaying the rating */}
-            <Chip
-              icon={<StarRateIcon style={{ color: '#ffb400' }} />}
-              label={movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"}
-              color="primary"
-              variant="outlined"
-              size="small"
+            {/* Super easy, standalone MUI Chip component */}
+            <Chip 
+              icon={<StarRateIcon />} 
+              label={movie.vote_average ? movie.vote_average.toFixed(1) : "N/A"} 
+              color="primary" 
+              size="small" 
             />
           </Grid>
         </Grid>

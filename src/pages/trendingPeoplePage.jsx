@@ -1,14 +1,18 @@
 import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { getTrendingPeople } from "../api/tmdb-api";
-import { useQuery } from '@tanstack/react-query';
-import Spinner from '../components/spinner';
-import { Grid, Card, CardMedia, CardContent, Typography } from "@mui/material";
+import Spinner from "../components/spinner";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import CardContent from "@mui/material/CardContent";
 import { Link } from "react-router";
-import Container from "@mui/material/Container";
+import img from "../images/film-poster-placeholder.png";
 
 const TrendingPeoplePage = () => {
   const { data, error, isLoading, isError } = useQuery({
-    queryKey: ['trending_people'],
+    queryKey: ["trending-people"],
     queryFn: getTrendingPeople,
   });
 
@@ -18,33 +22,40 @@ const TrendingPeoplePage = () => {
   const people = data.results;
 
   return (
-    <Container sx={{ paddingTops: 4, mt: 4 }}>
-      <Typography variant="h4" gutterBottom>
-        Trending Actors & Crew
+    <div style={{ padding: "20px" }}>
+      <Typography variant="h4" sx={{ mb: 3 }}>
+        Trending Actors & People
       </Typography>
+
       <Grid container spacing={3}>
-        {people.map((person) => (
-          <Grid item xs={12} sm={6} md={3} key={person.id}>
-            <Card component={Link} to={`/person/${person.id}`} sx={{ textDecoration: 'none', height: '100%', display: 'flex', flexDirection: 'column' }}>
-              <CardMedia
-                component="img"
-                height="300"
-                image={person.profile_path ? `https://image.tmdb.org/t/p/w500${person.profile_path}` : 'https://via.placeholder.com/500x750?text=No+Image'}
-                alt={person.name}
-              />
-              <CardContent>
-                <Typography variant="h6" component="div" color="text.primary">
-                  {person.name}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Known for: {person.known_for_department}
-                </Typography>
-              </CardContent>
+        {people?.map((person) => (
+          <Grid item xs={6} sm={3} md={2} key={person.id}>
+            <Card sx={{ height: "100%" }}>
+              <Link to={`/actors/${person.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+                <CardMedia
+                  component="img"
+                  height="250"
+                  image={
+                    person.profile_path
+                      ? `https://image.tmdb.org/t/p/w500/${person.profile_path}`
+                      : img
+                  }
+                  alt={person.name}
+                />
+                <CardContent style={{ padding: "10px", textAlign: "center" }}>
+                  <Typography variant="subtitle2" noWrap>
+                    {person.name}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary" display="block" noWrap>
+                    Popularity: {person.popularity?.toFixed(0)}
+                  </Typography>
+                </CardContent>
+              </Link>
             </Card>
           </Grid>
         ))}
       </Grid>
-    </Container>
+    </div>
   );
 };
 

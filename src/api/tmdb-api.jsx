@@ -118,10 +118,9 @@ export const getTopRatedMovies = () => {
 export const getTrendingPeople = () => {
   return fetch(
     `https://api.themoviedb.org/3/trending/person/week?api_key=${import.meta.env.VITE_TMDB_KEY}`
-  ).then((response) => {
-    if (!response.ok) throw new Error("Failed to fetch trending people");
-    return response.json();
-  });
+  )
+    .then((res) => res.json())
+    .then((json) => json);
 };
 
 // --- Parameterized Endpoints ---
